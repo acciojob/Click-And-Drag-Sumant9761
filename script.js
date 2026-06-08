@@ -1,34 +1,33 @@
-// Your code here.
 const slider = document.querySelector('.items');
 
 let isDown = false;
-let startX;
-let scrollLeft;
+let startX = 0;
+let scrollLeft = 0;
 
-slider.addEventListener('mousedown', function(e) {
+slider.addEventListener('mousedown', function (e) {
     isDown = true;
     slider.classList.add('active');
 
-    startX = e.pageX - slider.offsetLeft;
+    startX = e.pageX || e.clientX;
     scrollLeft = slider.scrollLeft;
 });
 
-slider.addEventListener('mouseleave', function() {
+slider.addEventListener('mouseup', function () {
     isDown = false;
     slider.classList.remove('active');
 });
 
-slider.addEventListener('mouseup', function() {
+slider.addEventListener('mouseleave', function () {
     isDown = false;
     slider.classList.remove('active');
 });
 
-slider.addEventListener('mousemove', function(e) {
+slider.addEventListener('mousemove', function (e) {
     if (!isDown) return;
 
     e.preventDefault();
 
-    const x = e.pageX - slider.offsetLeft;
+    const x = e.pageX || e.clientX;
     const walk = x - startX;
 
     slider.scrollLeft = scrollLeft - walk;
